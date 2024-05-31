@@ -1,0 +1,37 @@
+[project]
+name = "projpackname_rd"
+version = "0.1.0"
+description = "Add a short description here"
+authors = [{ name = "Rahul Dave", email = "rahuldave@gmail.com" }]
+requires-python = ">= 3.11"
+dependencies = []
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+packages = ["projpackname"]
+package-dir = { "" = "." }
+
+[tool.pixi.project]
+channels = ["conda-forge"]
+platforms = ["osx-arm64"]
+
+# with this, the lockfile/editable setup is always rebuilt
+# and we have
+# ```
+# ❯ grep projpack pixi.lock
+#  name: projpackname-rd
+# ```
+# change to
+# projpackname_rd = { path = ".", editable = true }
+# to suppress the rebuild (one rebuild will happen but no subsequent rebuilds
+# tested by doing `pixi run ls` in the default environment
+[tool.pixi.pypi-dependencies]
+projpackname = { path = ".", editable = true }
+
+[tool.pixi.tasks]
+
+[tool.pixi.dependencies]
+requests = ">=2.32.3,<2.33"
